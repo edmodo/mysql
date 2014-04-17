@@ -101,12 +101,15 @@ func (d *MySQLDriver) Open(dsn string) (driver.Conn, error) {
 	}
 
 	// Get max allowed packet size
-	maxap, err := mc.getSystemVar("max_allowed_packet")
-	if err != nil {
-		mc.Close()
-		return nil, err
-	}
-	mc.maxPacketAllowed = stringToInt(maxap) - 1
+	//maxap, err := mc.getSystemVar("max_allowed_packet")
+	//if err != nil {
+	//	mc.Close()
+	//	return nil, err
+	//}
+	//mc.maxPacketAllowed = stringToInt(maxap) - 1
+    //changes based on comments of freepk at 2014-03-23 23:23:10 here http://sphinxsearch.com/forum/view.html?id=11339
+    mc.maxPacketAllowed = 8388608 - 1
+
 	if mc.maxPacketAllowed < maxPacketSize {
 		mc.maxWriteSize = mc.maxPacketAllowed
 	}

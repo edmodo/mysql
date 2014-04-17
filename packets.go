@@ -431,14 +431,18 @@ func (mc *mysqlConn) readResultSetHeaderPacket() (int, error) {
 		case iLocalInFile:
 			return 0, mc.handleInFileRequest(string(data[1:]))
 		}
+		//changes based on comments of freepk at 2014-03-23 23:23:10 here http://sphinxsearch.com/forum/view.html?id=11339
 
 		// column count
-		num, _, n := readLengthEncodedInteger(data)
-		if n-len(data) == 0 {
-			return int(num), nil
-		}
+		//		num, _, n := readLengthEncodedInteger(data)
+		//		if n-len(data) == 0 {
+		//			return int(num), nil
+		//		}
 
-		return 0, errMalformPkt
+		//		return 0, errMalformPkt
+
+		num, _, _ := readLengthEncodedInteger(data)
+		return int(num), nil
 	}
 	return 0, err
 }
