@@ -10,7 +10,8 @@ package mysql
 
 import "io"
 
-const defaultBufSize = 4096
+//const defaultBufSize = 4096
+const defaultBufSize = 16368
 
 // A buffer which is used for both reading and writing.
 // This is possible since communication on each connection is synchronous.
